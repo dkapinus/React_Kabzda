@@ -1,59 +1,49 @@
-import React from "react";
+import React, {useState} from "react";
 
 
 
 
+export function Rating () {
 
-export function Rating (props:any) {
+const Started =(setStars:number)=> {
+setValue(setStars)
+    }
 
-    if (props.value===1){return (
-        <div>  <Star selected={true}/>
-            <Star selected={false}/>
-            <Star selected={false}/>
-            <Star selected={false}/>
-            <Star selected={false}/></div>)}
-
-    if (props.value===2){return (
-        <div>  <Star selected={true}/>
-            <Star selected={true}/>
-            <Star selected={false}/>
-            <Star selected={false}/>
-            <Star selected={false}/></div>)}
-
-    if (props.value===3){return (
-        <div>  <Star selected={true}/>
-            <Star selected={true}/>
-            <Star selected={true}/>
-            <Star selected={false}/>
-            <Star selected={false}/></div>)}
-    if (props.value===4){return (
-        <div>  <Star selected={true}/>
-            <Star selected={true}/>
-            <Star selected={true}/>
-            <Star selected={true}/>
-            <Star selected={false}/></div>)}
-    if (props.value===5){return (
-        <div>  <Star selected={true}/>
-            <Star selected={true}/>
-            <Star selected={true}/>
-            <Star selected={true}/>
-            <Star selected={true}/></div>)}
+    let [value,setValue]=useState(0)
     return (
 
-        <div>  <Star selected={false}/>
-            <Star selected={false}/>
-            <Star selected={false}/>
-            <Star selected={false}/>
-            <Star selected={false}/></div>)
+        <div>  <Star selected={value>0} started={Started}/>
+            <Star selected={value>1} started={Started}/>
+            <Star selected={value>2} started={Started}/>
+            <Star selected={value>3} started={Started}/>
+            <Star selected={value>4} started={Started}/>
+        </div>)
 
 }
 
-function Star (props:any) {
+type StarType ={
+    selected:boolean;
+    started:(setStars:number)=>void;
+}
 
-   if(props.selected===true){return <span><b>star </b></span>}
-   else {return <span>star </span> }
+
+export function Star (props:StarType) {
 
 
+
+    const SetValueStars = (setStars:number)=> {
+       props.started(setStars)
+    }
+
+ return (
+     <span>
+
+         {props.selected
+             ? <span ><b>star </b></span>
+             : <span onClick={()=>SetValueStars(5)}>star </span>}
+
+     </span>
+ )
 
 
 
