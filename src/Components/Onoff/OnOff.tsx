@@ -1,50 +1,55 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 
 type OnOffType = {
-
+    working: () => void
+    work: boolean
 }
 
 
+export const OnOff = (props: OnOffType) => {
 
 
-
-export const OnOff = (props:OnOffType) => {
-
-    let [work,setWork]=useState(false)
+    const SetWork = () => {
+        props.working()
+    }
 
     const StyleButtonON = {
-        width:'30px',
-        height:'30px',
+        width: '30px',
+        height: '30px',
         border: '1px solid black',
-        backgroundColor:work ? 'green':'white',
+        backgroundColor: props.work ? 'green' : 'white',
     }
 
     const StyleButtonOFF = {
-        width:'30px',
-        height:'30px',
+        width: '30px',
+        height: '30px',
         border: '1px solid black',
-        backgroundColor:work ? 'white':'red',
+        backgroundColor: props.work ? 'white' : 'red',
 
     }
 
     const Style = {
-        width:'30px',
-        height:'30px',
-        borderRadius:'15px',
-        display:'inline-block',
+        width: '30px',
+        height: '30px',
+        borderRadius: '15px',
+        display: 'inline-block',
         border: '1px solid black',
-        backgroundColor:work ? 'green':'red',
-        marginLeft:'5px'
+        backgroundColor: props.work ? 'green' : 'red',
+        marginLeft: '5px'
     }
 
 
-    return ( <span>
+    return (<span>
 
-            <span  onClick={()=>{setWork(false)}} style={StyleButtonOFF}>
+            <span onClick={() => {
+                SetWork()
+            }} style={StyleButtonOFF}>
                OFF
             </span>
-            <span onClick={()=>{setWork(true)}}style={StyleButtonON}>
+            <span onClick={() => {
+                SetWork()
+            }} style={StyleButtonON}>
                 ON
             </span>
             <span style={Style}>
