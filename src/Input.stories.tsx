@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {ChangeEvent, useRef, useState} from "react";
 
 
 export default {
@@ -26,4 +26,45 @@ export const InputDifferent = () => {
     return (<><input ref={inputRef}/><button onClick={inputValue}>Text</button> -{value}</>)
 }
 
+
+export const ControlledInput = ()=>{
+const [value,setValue]=useState('')
+
+
+    const onChange =(e:ChangeEvent<HTMLInputElement>)=> {
+    setValue(e.currentTarget.value)
+    }
+    return (<input value={value} onChange={onChange}/>)
+
+}
+
+export const ControlledInputCheckbox = ()=>{
+    const [value,setValue]=useState(false)
+
+    const changeStatus = (e:boolean)=> {
+        setValue(e)
+    }
+
+    return (<input type={'checkbox'} checked={value} onClick={(event)=>changeStatus(event.currentTarget.checked)}/>)
+
+}
+
+export const ControlledSelect = ()=>{
+    const [value,setValue]=useState<string|undefined>('3')
+
+
+    const onChange =(e:ChangeEvent<HTMLSelectElement>)=> {
+        setValue(e.currentTarget.value)
+    }
+
+    return <select value={value} onChange={onChange}>
+        <option value={'1'}>none</option>
+        <option value={'2'}>Minsk</option>
+        <option value={'3'}>Vienna</option>
+        <option value={'4'}>Pha</option>
+    </select>
+
+
+
+}
 
