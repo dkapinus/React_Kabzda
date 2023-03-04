@@ -21,8 +21,8 @@ function App() {
   return (
     <div className={'App'}>
         <AppTitle title={'This is App component'}/>
-        <Accordion collapsed={collapsed} changeCollapsed={()=>setCollapsed(!collapsed)} title={'Menu'} />
-        <Accordion collapsed={collapsed} changeCollapsed={()=>setCollapsed(!collapsed)}  title={'Hello subscriber'} />
+        <Accordion onclick={(id)=>alert(`user ${id}`)} collapsed={collapsed} changeCollapsed={()=>setCollapsed(!collapsed)} title={'Menu'} items={[]} />
+        <Accordion onclick={(id)=>alert(`user ${id}`)} collapsed={collapsed} changeCollapsed={()=>setCollapsed(!collapsed)}  title={'Hello subscriber'} items={[]} />
         <Rating  value={value} setValue={ChangeValue}/>
 
         <OnOff work={work} working={()=>setWork(!work)} />
