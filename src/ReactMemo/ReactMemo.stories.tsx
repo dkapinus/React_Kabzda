@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {useState} from "react";
 
 
@@ -33,8 +33,10 @@ export const ReactMemo = () => {
 
     const [user, setUser] = useState(['Dimych', 'Valera', 'Julian'])
 
+    const MainRerender =useMemo(()=>{return user.filter((el)=>el.toLocaleLowerCase().indexOf('a')>-1)},[user])
+
     const Rerender =()=> {
-        setUser([...user,'Morty'+' ' + Date()])
+        setUser([...user,'Marty'+' ' + Date()])
     }
 
     return (
@@ -43,7 +45,7 @@ export const ReactMemo = () => {
             <button onClick={()=>setCount(count+1)}>+</button>
             <button onClick={Rerender}>Rerender user</button>
             <Header count={count} />
-            <TableSecret user={user} />
+            <TableSecret user={MainRerender} />
         </>
     )
 }
