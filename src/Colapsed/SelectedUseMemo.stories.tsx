@@ -9,7 +9,7 @@ export default {
     component: SelectedUseMemo
 }
 
-export type FilterValueType ='Belarus'|'Ukraine'|'Spain'
+export type FilterValueType ='Belarus'|'Ukraine'|'Spain'|'All'
 
 export const SelectedMemo = ()=>{
 
@@ -27,16 +27,45 @@ export const SelectedMemo = ()=>{
         {value:8,title:'Malaga',country:'Spain',isDone:true},
     ])
 
+    const [nameButton,SetNameButton]=useState<FilterValueType>('All')
 
+    const filterCountry=(nameButton:FilterValueType)=> {
+        SetNameButton(nameButton)
+    }
+
+
+
+    let filter=useMemo(()=>{
+        console.log('bla')
+        let bla=items
+
+        if(nameButton==='Belarus'){  bla=items.filter((el)=>el.country==='Belarus')}
+        if(nameButton==='Ukraine'){ bla=items.filter((el)=>el.country==='Ukraine')}
+        if(nameButton==='Spain'){ bla=items.filter((el)=>el.country==='Spain')}
+
+        return bla},[nameButton])
+
+
+
+ const [SuperCounter,SetSuperCounter]=useState(0)
+
+    const Counter =()=> {
+         SetSuperCounter(SuperCounter+1)
+    }
 
         return(
 
-            <SelectedUseMemo items ={items}
+            <SuperMemo items ={filter}
                              value={value}
+                             filterCountry={filterCountry}
+                             Counter={Counter}
+                             SuperCounter={SuperCounter}
                             />
 
        )
 }
+
+const SuperMemo=React.memo(SelectedUseMemo)
 
 
 

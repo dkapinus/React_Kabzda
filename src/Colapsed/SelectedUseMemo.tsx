@@ -1,10 +1,14 @@
 import React, {useState} from "react";
 import s from "./three.module.css";
 import {FilterValueType} from "./SelectedUseMemo.stories";
+import {Counter} from "@storybook/addon-actions/dist/ts3.9/components/ActionLogger/style";
 
 type ThreeOptionSelectType = {
     items: ItemsType[]
     value: number
+    filterCountry:( country: FilterValueType)=>void
+    Counter:()=>void
+    SuperCounter:number
 
 }
 
@@ -39,6 +43,13 @@ export const SelectedUseMemo = (props: ThreeOptionSelectType) => {
 //         for (let i=0;i<props.items.length;i++){}
 // }
 
+    const  onclickFilterCountry =(country:FilterValueType)=> {
+        props.filterCountry(country)
+    }
+
+    const onCounter =()=> {
+        props.Counter()
+    }
     return (
         <>
             <div className={s.select}>
@@ -50,11 +61,17 @@ export const SelectedUseMemo = (props: ThreeOptionSelectType) => {
                             return (
                                 <div className={hover === el.value ? s.active : ''}
                                      onMouseEnter={() => SetHover(el.value)}
-                                     onClick={() => ChangeEnableSpan(el.title)}>{el.title}</div>
+                                     onClick={() => ChangeEnableSpan(el.title)}>{el.title}
+                                    <button onClick={()=>onclickFilterCountry(el.country)}>Filter</button></div>
+
                             )
                         })}
-
-
+                        <button onClick={()=>onclickFilterCountry('All')}>All</button>
+                        <button onClick={()=>onclickFilterCountry('Belarus')}>Belarus</button>
+                        <button onClick={()=>onclickFilterCountry('Ukraine')}>Ukraine</button>
+                        <button onClick={()=>onclickFilterCountry('Spain')}>Spain</button>
+                        <button onClick={onCounter}>Counter</button>
+                        <div>{props.SuperCounter}</div>
                     </div>
 
                 }
