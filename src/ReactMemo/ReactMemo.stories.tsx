@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {useState} from "react";
 
 
@@ -7,24 +7,6 @@ export default {
 
 }
 
-
-type TableType = {
-    user:Array<string>
-}
-export const Table = (props:TableType) => {
-    console.log('users')
-    return <div>
-
-        {props.user.map((el,index)=>{
-            return(
-                <li key={index}>
-                    {el}
-                </li>
-            )
-        })}
-    </div>
-}
-const  TableSecret=React.memo(Table)
 
 
 export const ReactMemo = () => {
@@ -35,17 +17,20 @@ export const ReactMemo = () => {
 
     const MainRerender =useMemo(()=>{return user.filter((el)=>el.toLocaleLowerCase().indexOf('a')>-1)},[user])
 
-    const Rerender =()=> {
-        setUser([...user,'Marty'+' ' + Date()])
+
+    const  addCount =()=> {
+        setCount(count+1)
     }
+
+    const memorized=useCallback(()=>{ setUser([...user,'Marty'+' ' + Date()])},[user])
 
     return (
 
         <>
-            <button onClick={()=>setCount(count+1)}>+</button>
-            <button onClick={Rerender}>Rerender user</button>
-            <Header count={count} />
-            <TableSecret user={MainRerender} />
+
+            <button onClick={memorized}>Rerender user</button>
+            <HeaderSecret count={count} />
+            <TableSecret user={MainRerender} addCount={addCount} />
         </>
     )
 }
@@ -58,11 +43,31 @@ type HeaderType = {
 }
 
 export const Header = (props: HeaderType) => {
-
-
-
+console.log('bhhbh')
     return <div>
 
         {props.count}
     </div>
 }
+
+type TableType = {
+    user:Array<string>
+    addCount:()=>void
+}
+
+export const Table = (props:TableType) => {
+    console.log('users')
+    return <div>
+        <button onClick={()=>props.addCount()}>+</button>
+        {props.user.map((el,index)=>{
+            return(
+                <li key={index}>
+                    {el}
+                </li>
+            )
+        })}
+    </div>
+}
+const  TableSecret=React.memo(Table)
+
+const HeaderSecret=React.memo(Header)
