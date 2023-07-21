@@ -15,7 +15,7 @@ export const ReactMemo = () => {
 
     const [user, setUser] = useState(['Dimych', 'Valera', 'Julian'])
 
-    const MainRerender =useMemo(()=>{return user.filter((el)=>el.toLocaleLowerCase().indexOf('a')>-1)},[user])
+    const MainRerender =useMemo(()=>{return user.filter((el)=>el.toLocaleLowerCase().indexOf('i')>-1)},[user])
 
 
     const  addCount =()=> {
